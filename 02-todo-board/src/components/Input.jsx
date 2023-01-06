@@ -20,7 +20,7 @@ const Input = ({ taskList, setTaskList }) => {
                     onChange={(e) => setInput(e.target.value)}
                 />
                 <button
-                    className="bg-violet-400 text-white py-2 px-3.5 rounded-lg"
+                    className="bg-violet-400 text-white py-2 px-3.5 rounded-lg font-semibold hover:opacity-70"
                     onClick={handleAddTask}
                 >
                     Add
