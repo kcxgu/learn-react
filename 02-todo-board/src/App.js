@@ -15,7 +15,10 @@ function App() {
         {taskList.map((task, index) =>
           <Board
             key={index}
+            index={index}
             task={task}
+            taskList={taskList}
+            setTaskList={setTaskList}
           />
         )}
       </div>
