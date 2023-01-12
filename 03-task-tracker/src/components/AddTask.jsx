@@ -4,6 +4,7 @@ const AddTask = ({ taskList, setTaskList }) => {
     const [addModal, setAddModal] = useState(false);
     const [projectName, setProjectName] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleInput = e => {
         const { name, value } = e.target;
