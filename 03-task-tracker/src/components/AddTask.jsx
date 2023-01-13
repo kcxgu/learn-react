@@ -24,8 +24,9 @@ const AddTask = ({ taskList, setTaskList }) => {
         if (!projectName) {
             setErrorMessage("Enter project name to continue")
         } else {
+            let timestamp = new Date().getTime();
             setTaskList(
-                [...taskList, { projectName, taskDescription }]
+                [...taskList, { projectName, taskDescription, timestamp: timestamp }]
             );
             setAddModal(false);
             setProjectName("");
