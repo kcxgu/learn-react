@@ -40,9 +40,11 @@ function App() {
       <div className="flex flex-row">
         <div className="w-full">
           <h2 className="ml-6 text-xl font-semibold w-3/4 max-w-lg my-4 py-2 px-4 bg-gray-200">To Do:</h2>
-          {taskList.map((task, i) =>
-            <ToDo key={i} task={task} index={i} taskList={taskList} setTaskList={setTaskList} />
-          )}
+          <div className="ml-6 flex flex-col-reverse">
+            {taskList.map((task, i) =>
+              <ToDo key={i} task={task} index={i} taskList={taskList} setTaskList={setTaskList} />
+            )}
+          </div>
         </div>
         <div className="w-full flex flex-col" ref={drop}>
           <h2 className="text-xl font-semibold w-3/4 max-w-lg my-4 py-2 px-4 bg-gray-200">Completed:</h2>

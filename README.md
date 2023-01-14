@@ -14,3 +14,11 @@ Key Skills Learned:
 - Thinking in React: Where state lives
 - Mapping and manipulating data
 - Calculating milliseconds, seconds, minutes
+
+## 03. Task Tracker
+Key Skills Learned:
+- useEffect
+- useState
+- Working with modals
+- Storing data in local storage
+- Implementing drag and drop, using [React DnD] (https://react-dnd.github.io/react-dnd/about)
