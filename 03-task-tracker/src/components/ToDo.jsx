@@ -1,10 +1,24 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDrag } from "react-dnd"
 import EditTask from "./EditTask";
 
-const ToDo = ({ task, taskList, setTaskList }) => {
+const ToDo = ({ task, index, taskList, setTaskList }) => {
     const [time, setTime] = useState(task.duration);
     const [running, setRunning] = useState(false);
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: "todo",
+        item: {
+            id: index,
+            projectName: task.projectName,
+            taskDescription: task.taskDescription,
+            timestamp: task.timestamp,
+            duration: task.duration
+        },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging(),
+        })
+    }))
 
     useEffect(() => {
         let interval;
@@ -38,19 +52,18 @@ const ToDo = ({ task, taskList, setTaskList }) => {
         taskList.splice(removeIndex, 1);
         localStorage.setItem("taskList", JSON.stringify(taskList));
         window.location.reload();
-        // setTaskList((currentTasks => currentTasks.filter(todo => todo.id !== itemID)))
     }
 
     return (
         <>
-            <div className="flex flex-col items-start justify-start bg-white my-4 ml-6 py-4 px-6 w-3/4 max-w-lg">
+            <div className="flex flex-col items-start justify-start bg-white my-4 ml-6 py-4 px-6 w-3/4 max-w-lg" ref={drag}>
                 <div className="w-full flex flex-row justify-between">
                     <p className="font-semibold text-xl">{task.projectName}</p>
                     <EditTask task={task} taskList={taskList} setTaskList={setTaskList} />
                 </div>
                 <p className="text-lg py-2">{task.taskDescription}</p>
-                <div className="w-full flex flex-row items-center justify-evenly">
-                    <div className="w-1/4 text-xl font-semibold py-4">
+                <div className="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-evenly">
+                    <div className="sm:w-1/4 text-xl font-semibold py-4">
                         <span>{("0" + Math.floor((time / 3600000) % 24)).slice(-2)}:</span>
                         <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
                         <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
