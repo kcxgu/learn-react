@@ -1,8 +1,8 @@
 import { useState } from "react";
-import SQMConverter from "./sqmConverter";
+import ChangeName from "./ChangeName";
 
 function App() {
-  const [username, setUsername] = useState("")
+  const [username, setUsername] = useState("there")
 
   const handleInput = e => {
     setUsername(e.target.value)
@@ -18,8 +18,9 @@ function App() {
         placeholder="My wonderful name"
         onChange={handleInput}
       />
-      <hr />
-      <SQMConverter username={username} />
+      <p>Hi {username},</p>
+      <p>{username}, you are doing great today</p>
+      <ChangeName username={username} setUsername={setUsername} />
     </>
   );
 }
