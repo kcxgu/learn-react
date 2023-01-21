@@ -5,8 +5,6 @@ import Feed from "./Feed";
 function App() {
   const [articles, setArticles] = useState([]);
 
-  console.log(articles);
-
   const getArticles = async () => {
     try {
       const res = await axios.get("http://localhost:4000/");

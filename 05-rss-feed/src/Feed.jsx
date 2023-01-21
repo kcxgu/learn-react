@@ -5,8 +5,8 @@ const Feed = ({ title, link, date }) => {
 
     return (
         <>
-            <a href={link} target="_blank" rel="noopener noreferrer" className="hover:opacity-70">
-                <h3 className="text-xl mb-1">{title}</h3>
+            <a href={link} target="_blank" rel="noopener noreferrer" className="hover:opacity-70 hover:text-orange-500">
+                <h3 className="text-xl mb-1 underline">{title}</h3>
                 <p>{articleDate}</p>
             </a>
         </>
