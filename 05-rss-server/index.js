@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     res.send(articles);
 })
 
-const server = app.listen("4000", () => {
+const server = app.listen("4001", () => {
     console.log("App is listening at http://localhost:4000");
 })
 

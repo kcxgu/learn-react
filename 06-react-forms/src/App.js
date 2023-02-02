@@ -41,6 +41,12 @@ function App() {
     }])
   }
 
+  const handleDelete = (i) => {
+    let deletePrompts = [...prompts];
+    deletePrompts.splice(i, 1);
+    setPrompts(deletePrompts);
+  }
+
   return (
     <>
       <h1 className="text-3xl text-center my-4 py-2">06 - React Forms</h1>
@@ -110,16 +116,27 @@ function App() {
           {prompts.map((prompt, i) => (
             <div key={prompt.timestamp} className="flex flex-col">
               <label className="text-3xl font-semibold">Select a prompt</label>
-              <select className="w-full border rounded text-lg leading-tight py-3 px-2 mt-4 mb-3 focus:outline-indigo-200"
-                id="prompt" name="prompt"
-                onChange={e => handlePrompt(e, i)}>
-                <option value="Dating me is like...">Dating me is like...</option>
-                <option value="Fact about me that surprises people:">Fact about me that surprises people:</option>
-                <option value="I want someone who...">I want someone who...</option>
-                <option value="I spend most of my money on:">I spend most of my money on:</option>
-                <option value="The most spontaneous thing I've done:">The most spontaneous thing I've done:</option>
-                <option value="We're the same type of weird if...">We're the same type of weird if...</option>
-              </select>
+              <div className="flex flex-row items-center gap-2">
+                <select className="w-full border rounded text-lg leading-tight py-3 px-2 mt-4 mb-3 focus:outline-indigo-200"
+                  id="prompt" name="prompt"
+                  onChange={e => handlePrompt(e, i)}
+                >
+                  <option>Select Prompt</option>
+                  <option value="Dating me is like...">Dating me is like...</option>
+                  <option value="Fact about me that surprises people:">Fact about me that surprises people:</option>
+                  <option value="I want someone who...">I want someone who...</option>
+                  <option value="I spend most of my money on:">I spend most of my money on:</option>
+                  <option value="The most spontaneous thing I've done:">The most spontaneous thing I've done:</option>
+                  <option value="We're the same type of weird if...">We're the same type of weird if...</option>
+                </select>
+                <button
+                  className="border bg-red-400 py-2.5 px-4 rounded-lg text-white font-bold text-xl"
+                  type="button"
+                  onClick={() => handleDelete(i)}
+                >
+                  —
+                </button>
+              </div>
               <textarea
                 className="border border-dashed py-3 px-2 mb-4 focus:outline-indigo-200"
                 id="answer"

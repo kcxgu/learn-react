@@ -7,7 +7,7 @@ function App() {
 
   const getArticles = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/");
+      const res = await axios.get("http://localhost:4001/");
       setArticles(res.data);
     } catch (error) {
       console.log(error);
