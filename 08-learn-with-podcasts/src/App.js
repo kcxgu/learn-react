@@ -52,18 +52,20 @@ function App() {
   return (
     <UserContext.Provider value={[user, setUser]}>
       <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} signInButton={signInButton} />
-      <div className="pl-4 py-4">
-        <h2 className="text-2xl font-medium">Accidental Tech Podcast</h2>
-        {data.map((ep, i) =>
-          <Episode
-            key={i}
-            title={ep.title}
-            pubDate={ep.pubDate}
-            link={ep.link}
-            mp3={ep.mp3}
-          />
-        )}
-      </div>
+      {loggedIn ? (
+        <div className="pl-4 py-4 flex flex-col items-center">
+          <h2 className="text-2xl font-medium">Accidental Tech Podcast</h2>
+          {data.map((ep, i) =>
+            <Episode
+              key={i}
+              title={ep.title}
+              pubDate={ep.pubDate}
+              link={ep.link}
+              mp3={ep.mp3}
+            />
+          )}
+        </div>
+      ) : null}
     </UserContext.Provider>
   );
 }
