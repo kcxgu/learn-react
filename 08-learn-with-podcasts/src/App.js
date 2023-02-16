@@ -1,19 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import jwt_decode from "jwt-decode";
+import { UserContext } from "./contexts/UserContext";
+import Header from "./components/Header";
 
 function App() {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const signInButton = useRef();
 
   const handleCallBack = (res) => {
     let user = jwt_decode(res.credential);
     setUser(user);
     setLoggedIn(true);
-  }
-
-  const handleLogOut = () => {
-    setLoggedIn(false);
-    setUser({});
   }
 
   useEffect(() => {
@@ -23,29 +21,14 @@ function App() {
       callback: handleCallBack
     });
     google.accounts.id.renderButton(
-      document.getElementById("SignIn"),
+      signInButton.current,
       { theme: "outline", size: "large" }
     )
   }, [loggedIn])
   return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-3xl mt-5 py-2 text-center">08 - Learn With Podcasts</h1>
-      {loggedIn ? (
-        <>
-          <button
-            className="border py-1 px-3 rounded-lg my-2 bg-blue-500 text-white"
-            onClick={handleLogOut}
-          >
-            Log Out
-          </button>
-          <h3>Hi there, {user.given_name}</h3>
-        </>
-      ) : (
-        <>
-          <div id="SignIn"></div>
-        </>
-      )}
-    </div>
+    <UserContext.Provider value={[user, setUser]}>
+      <Header loggedIn={loggedIn} setLoggedIn={setLoggedIn} signInButton={signInButton} />
+    </UserContext.Provider>
   );
 }
 
