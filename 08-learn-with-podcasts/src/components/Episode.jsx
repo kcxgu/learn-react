@@ -1,4 +1,10 @@
+import { useContext } from "react"
+import { UserContext } from "../contexts/UserContext"
+
 const Episode = ({ title, pubDate, link, mp3 }) => {
+
+    const [user] = useContext(UserContext);
+
     return (
         <div className="max-w-3xl flex flex-row items-center border rounded-lg my-4">
             <div className="w-1/2 pl-2 mt-2 mb-4 py-2 px-5 mx-auto">
@@ -11,7 +17,7 @@ const Episode = ({ title, pubDate, link, mp3 }) => {
                 <p>{pubDate}</p>
             </div>
             <div className="w-1/2 flex flex-col gap-1 my-2 px-8">
-                <label htmlFor="notes" className="text-gray-700 font-medium">Make Notes Here</label>
+                <label htmlFor="notes" className="text-gray-700 font-medium">Make Notes Here, {user.given_name}</label>
                 <textarea
                     id="notes"
                     className="border rounded-lg p-2"
