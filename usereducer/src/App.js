@@ -1,25 +1,66 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+const logInReducer = (state, action) => {
+  switch (action.type) {
+    case "field": {
+      return {
+        ...state,
+        [action.fieldName]: action.payload,
+      }
+    }
+    case "logIn": {
+      return {
+        ...state,
+        error: "",
+      }
+    }
+    case "success": {
+      return {
+        ...state,
+        loggedIn: true,
+        password: "",
+      }
+    }
+    case "error": {
+      return {
+        ...state,
+        error: "Incorrect username or password",
+        loggedIn: false,
+        username: "",
+        password: "",
+      }
+    }
+    case "logOut": {
+      return {
+        ...state,
+        loggedIn: false,
+      }
+    }
+    default: return state;
+  }
+}
 
 function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [error, setError] = useState("");
+  const [state, dispatch] = useReducer(logInReducer, {
+    username: "",
+    password: "",
+    loggedIn: false,
+    error: "",
+  });
 
   const handleSubmit = e => {
     e.preventDefault();
-    setError("");
+
+    dispatch({ type: "logIn" });
+
     try {
-      if (username === "Jerry" && password === "Tom") {
-        setLoggedIn(true);
+      if (state.username === "Jerry" && state.password === "Tom") {
+        dispatch({ type: "success" });
       } else {
         throw Error;
       }
-      setPassword("");
     } catch (error) {
-      setError("Incorrect username or password");
-      setUsername("");
-      setPassword("");
+      dispatch({ type: "error" });
     }
   }
 
@@ -27,12 +68,12 @@ function App() {
     <>
       <h1 className="text-center text-3xl font-semibold mt-2 py-4">10 - useReducer</h1>
       <div>
-        {loggedIn ? (
+        {state.loggedIn ? (
           <>
             <div className="flex flex-col items-center gap-4">
-              <h2 className="text-center text-3xl mt-4 py-2">Welcome {username}!</h2>
+              <h2 className="text-center text-3xl mt-4 py-2">Welcome {state.username}!</h2>
               <button className="bg-blue-600 text-white text-lg font-medium rounded-lg py-1 px-3"
-                onClick={() => setLoggedIn(false)}
+                onClick={() => dispatch({ type: "logOut" })}
               >
                 Log Out
               </button>
@@ -45,21 +86,29 @@ function App() {
               type="text"
               autoComplete="username"
               placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={state.username}
+              onChange={(e) => dispatch({
+                type: "field",
+                fieldName: "username",
+                payload: e.target.value,
+              })}
             />
             <input
               className="border rounded-lg px-2 py-1"
               type="password"
               autoComplete="current-password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={state.password}
+              onChange={(e) => dispatch({
+                type: "field",
+                fieldName: "password",
+                payload: e.target.value,
+              })}
             />
             <button className="bg-blue-600 text-white text-lg font-medium rounded-lg py-1 px-3" type="submit">
               Log In
             </button>
-            <p className="text-red-500 text-center">{error}</p>
+            <p className="text-red-500 text-center">{state.error}</p>
           </form>
         )}
       </div>
