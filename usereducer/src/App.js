@@ -15,6 +15,7 @@ function App() {
       } else {
         throw Error;
       }
+      setPassword("");
     } catch (error) {
       setError("Incorrect username or password");
       setUsername("");
