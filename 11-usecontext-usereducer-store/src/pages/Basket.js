@@ -11,7 +11,7 @@ const Basket = () => {
             <Navbar />
             <div className="flex flex-row items-center justify-between mt-2 py-6 px-10 text-xl font-medium">
                 <h3>Your Basket</h3>
-                <p>Total: £{total}</p>
+                <p>Total: £{total.toFixed(2)}</p>
             </div>
             {products.map((product, i) =>
                 <BasketProduct

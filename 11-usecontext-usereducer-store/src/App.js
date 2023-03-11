@@ -6,11 +6,11 @@ import Home from "./pages/Home";
 function App() {
   return (
     <StoreProvider>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/basket" element={<Basket />} />
-      </Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/basket" element={<Basket />} />
+        </Routes>
       </Router>
     </StoreProvider>
   );
